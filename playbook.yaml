@@ -1,0 +1,31 @@
+- name: WebserverPlaybook
+  hosts: ws1
+  become: yes
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+    - name: create www directory if they don't exist
+      file:
+        path: /home/{{ ansible_user }}/www
+        state: directory
+    - name: Copy nginx configuration
+      template:
+        src: ./website.j2
+        dest: /etc/nginx/sites-available/website.conf
+    - name: Enable the website
+      file:
+        src: /etc/nginx/sites-available/website.conf
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+    - name: Start nginx
+      service:
+        name: nginx
+        state: restarted
+        enabled: true
+    - name: Copy index.html
+      copy:
+        src: ./www/index.html
+        dest: /home/{{ ansible_user }}/www/
