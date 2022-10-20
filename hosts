@@ -1,1 +1,6 @@
-ws1 ansible_host=20.62.197.140 ansible_user=azureuser ansible_ssh_private_key_file=./ansible-key.cer
+[webservers]
+ws1 ansible_host=20.218.126.115 ansible_user=azureuser ansible_ssh_private_key_file=./ansible-key.cer
+ws2 ansible_host=51.116.105.102 ansible_user=azureuser ansible_ssh_private_key_file=./ansible-key.cer
+
+[loadbalancer]
+lb ansible_host=20.79.160.65 ansible_user=azureuser ansible_ssh_private_key_file=./ansible-key.cer
